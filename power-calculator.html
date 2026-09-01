@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Power Calculator - Calculate X to the Power Y | Tools Sathi</title>
+  <meta name="description" content="Free online power calculator to calculate numbers raised to any power. Calculate exponents quickly and easily with Tools Sathi.">
+  <meta name="keywords" content="power calculator, exponent calculator, x to the power y, powers calculator">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: #666;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.08);
+      margin-bottom: 25px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 7px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 13px;
+      border: none;
+      border-radius: 7px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: .9;
+    }
+
+    .result {
+      margin-top: 18px;
+      padding: 16px;
+      background: #eef4ff;
+      border-radius: 7px;
+      text-align: center;
+      font-size: 21px;
+      font-weight: bold;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .error {
+      color: #b00020;
+      font-size: 15px;
+    }
+
+    .info {
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .example {
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 7px;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 23px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Tools Sathi</h1>
+  <p>Free Online Tools & Calculators</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Power Calculator</h2>
+
+    <p class="info">
+      Calculate a number raised to a power using the calculator below.
+    </p>
+
+    <label for="base">Base Number</label>
+    <input
+      type="number"
+      id="base"
+      placeholder="Example: 2"
+      step="any"
+    >
+
+    <label for="exponent">Exponent / Power</label>
+    <input
+      type="number"
+      id="exponent"
+      placeholder="Example: 8"
+      step="any"
+    >
+
+    <button onclick="calculatePower()">
+      Calculate Power
+    </button>
+
+    <div class="result" id="result">
+      Result will appear here
+    </div>
+  </div>
+
+
+  <div class="card">
+    <h2>What is a Power?</h2>
+
+    <p class="info">
+      A power represents repeated multiplication of a number.
+      The number being multiplied is called the base, and the
+      number showing how many times it is used is called the exponent.
+    </p>
+
+    <div class="example">
+      Example: 2⁵ = 2 × 2 × 2 × 2 × 2 = 32
+    </div>
+  </div>
+
+
+  <div class="card">
+    <h2>How to Use</h2>
+
+    <p class="info">
+      1. Enter the base number.
+    </p>
+
+    <p class="info">
+      2. Enter the exponent or power.
+    </p>
+
+    <p class="info">
+      3. Click "Calculate Power".
+    </p>
+
+    <p class="info">
+      4. The result will appear instantly.
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Tools Sathi. All Rights Reserved.
+</footer>
+
+<script>
+  function calculatePower() {
+    const baseInput = document.getElementById("base").value.trim();
+    const exponentInput = document.getElementById("exponent").value.trim();
+    const result = document.getElementById("result");
+
+    if (baseInput === "" || exponentInput === "") {
+      result.innerHTML =
+        '<span class="error">Please enter both numbers.</span>';
+      return;
+    }
+
+    const base = Number(baseInput);
+    const exponent = Number(exponentInput);
+
+    if (!Number.isFinite(base) || !Number.isFinite(exponent)) {
+      result.innerHTML =
+        '<span class="error">Please enter valid numbers.</span>';
+      return;
+    }
+
+    if (base === 0 && exponent < 0) {
+      result.innerHTML =
+        '<span class="error">Zero cannot be raised to a negative power.</span>';
+      return;
+    }
+
+    const answer = Math.pow(base, exponent);
+
+    if (!Number.isFinite(answer)) {
+      result.innerHTML =
+        '<span class="error">The result is too large to display safely.</span>';
+      return;
+    }
+
+    result.textContent =
+      formatNumber(base) +
+      " ^ " +
+      formatNumber(exponent) +
+      " = " +
+      formatNumber(answer);
+  }
+
+  function formatNumber(number) {
+    if (Number.isInteger(number)) {
+      return number.toString();
+    }
+
+    return parseFloat(number.toFixed(12)).toString();
+  }
+</script>
+
+</body>
+</html>
