@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ratio Calculator - Simplify & Calculate Ratios | Tools Sathi</title>
+  <meta name="description" content="Free online ratio calculator to simplify ratios, calculate equivalent ratios, and find missing values quickly and easily.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: #666;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.08);
+      margin-bottom: 25px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+    }
+
+    .inputs {
+      display: grid;
+      grid-template-columns: 1fr 40px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .colon {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      border: 0;
+      border-radius: 7px;
+      background: #2563eb;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: .9;
+    }
+
+    .result {
+      margin-top: 18px;
+      padding: 15px;
+      background: #eef4ff;
+      border-radius: 7px;
+      text-align: center;
+      font-size: 19px;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+
+    .error {
+      color: #b00020;
+      font-size: 15px;
+    }
+
+    .info {
+      color: #555;
+      line-height: 1.7;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 23px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      .inputs {
+        grid-template-columns: 1fr 30px 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Tools Sathi</h1>
+  <p>Free Online Tools & Calculators</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Ratio Simplifier</h2>
+
+    <div class="inputs">
+      <input type="number" id="ratioA" placeholder="First number">
+      <div class="colon">:</div>
+      <input type="number" id="ratioB" placeholder="Second number">
+    </div>
+
+    <button onclick="simplifyRatio()">Simplify Ratio</button>
+
+    <div class="result" id="simpleResult">
+      Result will appear here
+    </div>
+  </div>
+
+
+  <div class="card">
+    <h2>Find Missing Ratio Value</h2>
+
+    <p class="info">
+      If A : B = C : X, enter A, B and C to find X.
+    </p>
+
+    <div class="inputs">
+      <input type="number" id="a" placeholder="A">
+      <div class="colon">:</div>
+      <input type="number" id="b" placeholder="B">
+    </div>
+
+    <div class="inputs">
+      <input type="number" id="c" placeholder="C">
+      <div class="colon">:</div>
+      <input type="text" value="X" disabled>
+    </div>
+
+    <button onclick="findMissing()">Find X</button>
+
+    <div class="result" id="missingResult">
+      Result will appear here
+    </div>
+  </div>
+
+
+  <div class="card">
+    <h2>Ratio Calculator</h2>
+
+    <p class="info">
+      A ratio compares two quantities. For example, a ratio of
+      2:3 means that for every 2 units of the first quantity,
+      there are 3 units of the second quantity.
+    </p>
+
+    <p class="info">
+      Enter two numbers above to simplify their ratio to its
+      lowest form.
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Tools Sathi. All Rights Reserved.
+</footer>
+
+<script>
+  function gcd(a, b) {
+    a = Math.abs(a);
+    b = Math.abs(b);
+
+    while (b !== 0) {
+      let temp = b;
+      b = a % b;
+      a = temp;
+    }
+
+    return a;
+  }
+
+  function simplifyRatio() {
+    const a = Number(document.getElementById("ratioA").value);
+    const b = Number(document.getElementById("ratioB").value);
+    const result = document.getElementById("simpleResult");
+
+    if (!Number.isFinite(a) || !Number.isFinite(b)) {
+      result.innerHTML =
+        '<span class="error">Please enter both numbers.</span>';
+      return;
+    }
+
+    if (a === 0 && b === 0) {
+      result.innerHTML =
+        '<span class="error">Both numbers cannot be zero.</span>';
+      return;
+    }
+
+    if (b === 0) {
+      result.innerHTML =
+        '<span class="error">The second number cannot be zero.</span>';
+      return;
+    }
+
+    const divisor = gcd(a, b);
+
+    const simpleA = a / divisor;
+    const simpleB = b / divisor;
+
+    result.textContent =
+      "Simplified Ratio = " + simpleA + " : " + simpleB;
+  }
+
+  function findMissing() {
+    const a = Number(document.getElementById("a").value);
+    const b = Number(document.getElementById("b").value);
+    const c = Number(document.getElementById("c").value);
+    const result = document.getElementById("missingResult");
+
+    if (!Number.isFinite(a) ||
+        !Number.isFinite(b) ||
+        !Number.isFinite(c)) {
+
+      result.innerHTML =
+        '<span class="error">Please enter A, B and C.</span>';
+      return;
+    }
+
+    if (a === 0 || b === 0) {
+      result.innerHTML =
+        '<span class="error">A and B cannot be zero.</span>';
+      return;
+    }
+
+    const x = (b * c) / a;
+
+    result.textContent =
+      "X = " + Number(x.toFixed(10));
+  }
+</script>
+
+</body>
+</html>
