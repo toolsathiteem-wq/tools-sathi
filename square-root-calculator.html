@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Square Root Calculator - Calculate Square Root Online | Tools Sathi</title>
+  <meta name="description" content="Free square root calculator to calculate the square root of any positive number instantly. Simple, fast and accurate online tool.">
+  <meta name="keywords" content="square root calculator, square root finder, calculate square root, sqrt calculator">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: #666;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+      margin-bottom: 25px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 7px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 17px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 13px;
+      border: none;
+      border-radius: 7px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .result {
+      margin-top: 18px;
+      padding: 18px;
+      background: #eef4ff;
+      border-radius: 7px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+
+    .error {
+      color: #b00020;
+      font-size: 15px;
+    }
+
+    .info {
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .example {
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 7px;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 23px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Tools Sathi</h1>
+  <p>Free Online Tools & Calculators</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Square Root Calculator</h2>
+
+    <p class="info">
+      Enter a positive number below to calculate its square root.
+    </p>
+
+    <label for="number">Enter Number</label>
+
+    <input
+      type="number"
+      id="number"
+      placeholder="Example: 144"
+      step="any"
+    >
+
+    <button onclick="calculateSquareRoot()">
+      Calculate Square Root
+    </button>
+
+    <div class="result" id="result">
+      Result will appear here
+    </div>
+  </div>
+
+
+  <div class="card">
+    <h2>What is a Square Root?</h2>
+
+    <p class="info">
+      The square root of a number is a value that, when multiplied
+      by itself, gives the original number.
+    </p>
+
+    <div class="example">
+      Example: √144 = 12 because 12 × 12 = 144.
+    </div>
+  </div>
+
+
+  <div class="card">
+    <h2>How to Use the Calculator</h2>
+
+    <p class="info">
+      1. Enter a number in the input box.
+    </p>
+
+    <p class="info">
+      2. Click "Calculate Square Root".
+    </p>
+
+    <p class="info">
+      3. Your square root will be displayed instantly.
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Tools Sathi. All Rights Reserved.
+</footer>
+
+<script>
+  function calculateSquareRoot() {
+    const input = document.getElementById("number").value.trim();
+    const result = document.getElementById("result");
+
+    if (input === "") {
+      result.innerHTML =
+        '<span class="error">Please enter a number.</span>';
+      return;
+    }
+
+    const number = Number(input);
+
+    if (!Number.isFinite(number)) {
+      result.innerHTML =
+        '<span class="error">Please enter a valid number.</span>';
+      return;
+    }
+
+    if (number < 0) {
+      result.innerHTML =
+        '<span class="error">Please enter a non-negative number.</span>';
+      return;
+    }
+
+    const answer = Math.sqrt(number);
+
+    result.textContent =
+      "√" + number + " = " + formatNumber(answer);
+  }
+
+  function formatNumber(number) {
+    if (Number.isInteger(number)) {
+      return number.toString();
+    }
+
+    return parseFloat(number.toFixed(12)).toString();
+  }
+</script>
+
+</body>
+</html>
