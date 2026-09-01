@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GCD Calculator - Find Greatest Common Divisor | Tools Sathi</title>
+  <meta name="description" content="Free GCD Calculator to find the greatest common divisor of two or more numbers. Fast, accurate and easy to use online.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: #666;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.08);
+      margin-bottom: 25px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 13px;
+      border: 0;
+      border-radius: 7px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: .9;
+    }
+
+    .result {
+      margin-top: 18px;
+      padding: 15px;
+      background: #eef4ff;
+      border-radius: 7px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+
+    .error {
+      color: #b00020;
+      font-size: 15px;
+    }
+
+    .info {
+      color: #555;
+      line-height: 1.7;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 23px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Tools Sathi</h1>
+  <p>Free Online Tools & Calculators</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>GCD Calculator</h2>
+
+    <p class="info">
+      Enter two or more whole numbers separated by commas.
+      Example: 24, 36, 48
+    </p>
+
+    <label for="numbers">Numbers</label>
+
+    <input
+      type="text"
+      id="numbers"
+      placeholder="Example: 24, 36, 48"
+    >
+
+    <button onclick="calculateGCD()">Calculate GCD</button>
+
+    <div class="result" id="result">
+      Result will appear here
+    </div>
+  </div>
+
+
+  <div class="card">
+    <h2>What is GCD?</h2>
+
+    <p class="info">
+      GCD stands for Greatest Common Divisor. It is the largest
+      positive number that divides two or more numbers without
+      leaving a remainder.
+    </p>
+
+    <p class="info">
+      For example, the GCD of 12 and 18 is 6 because 6 is the
+      largest number that divides both 12 and 18 exactly.
+    </p>
+  </div>
+
+
+  <div class="card">
+    <h2>How to Use</h2>
+
+    <p class="info">
+      1. Enter numbers separated by commas.
+    </p>
+
+    <p class="info">
+      2. Click "Calculate GCD".
+    </p>
+
+    <p class="info">
+      3. The greatest common divisor will be displayed instantly.
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Tools Sathi. All Rights Reserved.
+</footer>
+
+<script>
+  function gcd(a, b) {
+    a = Math.abs(a);
+    b = Math.abs(b);
+
+    while (b !== 0) {
+      const remainder = a % b;
+      a = b;
+      b = remainder;
+    }
+
+    return a;
+  }
+
+  function calculateGCD() {
+    const input = document.getElementById("numbers").value.trim();
+    const result = document.getElementById("result");
+
+    if (!input) {
+      result.innerHTML =
+        '<span class="error">Please enter some numbers.</span>';
+      return;
+    }
+
+    const parts = input.split(",").map(item => item.trim());
+
+    if (parts.length < 2) {
+      result.innerHTML =
+        '<span class="error">Please enter at least two numbers.</span>';
+      return;
+    }
+
+    const numbers = parts.map(Number);
+
+    if (numbers.some(num => !Number.isInteger(num))) {
+      result.innerHTML =
+        '<span class="error">Please enter valid whole numbers only.</span>';
+      return;
+    }
+
+    if (numbers.some(num => num === 0)) {
+      result.innerHTML =
+        '<span class="error">Please do not use zero.</span>';
+      return;
+    }
+
+    let answer = Math.abs(numbers[0]);
+
+    for (let i = 1; i < numbers.length; i++) {
+      answer = gcd(answer, numbers[i]);
+    }
+
+    result.textContent = "GCD = " + answer;
+  }
+</script>
+
+</body>
+</html>
