@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Scientific Calculator - Free Online Calculator | Tools Sathi</title>
+  <meta name="description" content="Use the free online scientific calculator for arithmetic, powers, square roots, trigonometry, logarithms and more. Fast and easy to use.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: #666;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .calculator {
+      background: #fff;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.08);
+    }
+
+    #display {
+      width: 100%;
+      height: 70px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 25px;
+      text-align: right;
+      margin-bottom: 15px;
+      background: #f8fafc;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+    }
+
+    button {
+      min-height: 52px;
+      border: none;
+      border-radius: 8px;
+      background: #e9eef5;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: .85;
+    }
+
+    .operator {
+      background: #dbeafe;
+    }
+
+    .function {
+      background: #e5e7eb;
+      font-size: 15px;
+    }
+
+    .equals {
+      background: #2563eb;
+      color: white;
+    }
+
+    .clear {
+      background: #fee2e2;
+    }
+
+    .wide {
+      grid-column: span 2;
+    }
+
+    .info-card {
+      background: #fff;
+      margin-top: 25px;
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.06);
+    }
+
+    .info-card h2 {
+      margin-top: 0;
+    }
+
+    .info-card p {
+      color: #555;
+      line-height: 1.7;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    @media (max-width: 400px) {
+      .buttons {
+        gap: 6px;
+      }
+
+      button {
+        min-height: 48px;
+        font-size: 15px;
+      }
+
+      #display {
+        font-size: 21px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Tools Sathi</h1>
+  <p>Free Online Tools & Calculators</p>
+</header>
+
+<div class="container">
+
+  <div class="calculator">
+
+    <input
+      type="text"
+      id="display"
+      value=""
+      placeholder="0"
+      readonly
+      aria-label="Calculator display"
+    >
+
+    <div class="buttons">
+
+      <button class="clear" onclick="clearDisplay()">AC</button>
+      <button onclick="backspace()">⌫</button>
+      <button class="function" onclick="appendValue('(')">(</button>
+      <button class="function" onclick="appendValue(')')">)</button>
+
+      <button class="function" onclick="square()">x²</button>
+      <button class="function" onclick="sqrt()">√x</button>
+      <button class="function" onclick="appendValue('Math.PI')">π</button>
+      <button class="operator" onclick="appendValue('/')">÷</button>
+
+      <button class="function" onclick="sin()">sin</button>
+      <button class="function" onclick="cos()">cos</button>
+      <button class="function" onclick="tan()">tan</button>
+      <button class="operator" onclick="appendValue('*')">×</button>
+
+      <button class="function" onclick="log10()">log</button>
+      <button class="function" onclick="ln()">ln</button>
+      <button class="function" onclick="factorial()">n!</button>
+      <button class="operator" onclick="appendValue('-')">−</button>
+
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button class="operator" onclick="appendValue('+')">+</button>
+
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button onclick="appendValue('.')">.</button>
+
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button class="equals" onclick="calculate()">=</button>
+
+      <button class="wide" onclick="appendValue('0')">0</button>
+      <button onclick="toggleSign()">±</button>
+
+    </div>
+  </div>
+
+
+  <div class="info-card">
+    <h2>Scientific Calculator</h2>
+
+    <p>
+      This free scientific calculator supports basic arithmetic,
+      powers, square roots, trigonometric functions, logarithms,
+      factorials and mathematical constants.
+    </p>
+
+    <h2>How to Use</h2>
+
+    <p>
+      Enter numbers and mathematical operations using the buttons.
+      Use the scientific functions such as sin, cos, tan, √x,
+      x², log and ln when needed.
+    </p>
+
+    <p>
+      Trigonometric functions use degrees.
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Tools Sathi. All Rights Reserved.
+</footer>
+
+<script>
+  const display = document.getElementById("display");
+
+  function appendValue(value) {
+    display.value += value;
+  }
+
+  function clearDisplay() {
+    display.value = "";
+  }
+
+  function backspace() {
+    display.value = display.value.slice(0, -1);
+  }
+
+  function calculate() {
+    try {
+      if (!display.value.trim()) return;
+
+      const allowed = /^[0-9+\-*/().\sA-Za-z]+$/;
+
+      if (!allowed.test(display.value)) {
+        display.value = "Error";
+        return;
+      }
+
+      const result = Function(
+        '"use strict"; return (' + display.value + ')'
+      )();
+
+      if (!Number.isFinite(result)) {
+        display.value = "Error";
+        return;
+      }
+
+      display.value = formatNumber(result);
+    } catch {
+      display.value = "Error";
+    }
+  }
+
+  function formatNumber(number) {
+    if (Number.isInteger(number)) {
+      return number.toString();
+    }
+
+    return parseFloat(number.toFixed(12)).toString();
+  }
+
+  function getCurrentValue() {
+    const value = Number(display.value);
+
+    if (!Number.isFinite(value)) {
+      throw new Error("Invalid number");
+    }
+
+    return value;
+  }
+
+  function square() {
+    try {
+      const value = getCurrentValue();
+      display.value = formatNumber(value * value);
+    } catch {
+      display.value = "Error";
+    }
+  }
+
+  function sqrt() {
+    try {
+      const value = getCurrentValue();
+
+      if (value < 0) {
+        display.value = "Error";
+        return;
+      }
+
+      display.value = formatNumber(Math.sqrt(value));
+    } catch {
+      display.value = "Error";
+    }
+  }
+
+  function sin() {
+    try {
+      const value = getCurrentValue();
+      display.value = formatNumber(
+        Math.sin(value * Math.PI / 180)
+      );
+    } catch {
+      display.value = "Error";
+    }
+  }
+
+  function cos() {
+    try {
+      const value = getCurrentValue();
+      display.value = formatNumber(
+        Math.cos(value * Math.PI / 180)
+      );
+    } catch {
+      display.value = "Error";
+    }
+  }
+
+  function tan() {
+    try {
+      const value = getCurrentValue();
+      display.value = formatNumber(
+        Math.tan(value * Math.PI / 180)
+      );
+    } catch {
+      display.value = "Error";
+    }
+  }
+
+  function log10() {
+    try {
+      const value = getCurrentValue();
+
+      if (value <= 0) {
+        display.value = "Error";
+        return;
+      }
+
+      display.value = formatNumber(Math.log10(value));
+    } catch {
+      display.value = "Error";
+    }
+  }
+
+  function ln() {
+    try {
+      const value = getCurrentValue();
+
+      if (value <= 0) {
+        display.value = "Error";
+        return;
+      }
+
+      display.value = formatNumber(Math.log(value));
+    } catch {
+      display.value = "Error";
+    }
+  }
+
+  function factorial() {
+    try {
+      const value = getCurrentValue();
+
+      if (
+        value < 0 ||
+        !Number.isInteger(value) ||
+        value > 170
+      ) {
+        display.value = "Error";
+        return;
+      }
+
+      let result = 1;
+
+      for (let i = 2; i <= value; i++) {
+        result *= i;
+      }
+
+      display.value = result.toString();
+    } catch {
+      display.value = "Error";
+    }
+  }
+
+  function toggleSign() {
+    try {
+      const value = getCurrentValue();
+      display.value = formatNumber(-value);
+    } catch {
+      display.value = "Error";
+    }
+  }
+
+  document.addEventListener("keydown", function(event) {
+    const key = event.key;
+
+    if (
+      (key >= "0" && key <= "9") ||
+      ["+", "-", "*", "/", ".", "(", ")"].includes(key)
+    ) {
+      appendValue(key);
+    }
+
+    if (key === "Enter" || key === "=") {
+      calculate();
+    }
+
+    if (key === "Backspace") {
+      backspace();
+    }
+
+    if (key === "Escape") {
+      clearDisplay();
+    }
+  });
+</script>
+
+</body>
+</html>
