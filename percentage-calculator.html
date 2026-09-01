@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Percentage Calculator - Calculate Percentage Online | Tools Sathi</title>
+  <meta name="description" content="Free percentage calculator to calculate percentages, percentage increase, decrease, and what percent one number is of another. Fast and easy to use.">
+  <meta name="keywords" content="percentage calculator, percent calculator, percentage increase calculator, percentage decrease calculator">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 18px 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: #666;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 21px;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 16px;
+      padding: 13px;
+      border: 0;
+      border-radius: 7px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .result {
+      margin-top: 15px;
+      padding: 14px;
+      background: #eef4ff;
+      border-radius: 7px;
+      font-weight: bold;
+      text-align: center;
+      min-height: 20px;
+    }
+
+    .error {
+      color: #b00020;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 23px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Tools Sathi</h1>
+  <p>Free Online Tools & Calculators</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>What is X% of Y?</h2>
+
+    <label for="percent1">Percentage (%)</label>
+    <input type="number" id="percent1" placeholder="Example: 20">
+
+    <label for="number1">Number</label>
+    <input type="number" id="number1" placeholder="Example: 500">
+
+    <button onclick="calculatePercentage()">Calculate</button>
+
+    <div class="result" id="result1"></div>
+  </div>
+
+
+  <div class="card">
+    <h2>What percentage is X of Y?</h2>
+
+    <label for="number2">Number X</label>
+    <input type="number" id="number2" placeholder="Example: 50">
+
+    <label for="number3">Number Y</label>
+    <input type="number" id="number3" placeholder="Example: 200">
+
+    <button onclick="calculateWhatPercent()">Calculate</button>
+
+    <div class="result" id="result2"></div>
+  </div>
+
+
+  <div class="card">
+    <h2>Percentage Increase or Decrease</h2>
+
+    <label for="oldValue">Original Value</label>
+    <input type="number" id="oldValue" placeholder="Example: 100">
+
+    <label for="newValue">New Value</label>
+    <input type="number" id="newValue" placeholder="Example: 120">
+
+    <button onclick="calculateChange()">Calculate</button>
+
+    <div class="result" id="result3"></div>
+  </div>
+
+
+  <div class="card">
+    <h2>About Percentage Calculator</h2>
+
+    <p>
+      This free percentage calculator helps you quickly calculate percentages,
+      find what percentage one number is of another, and calculate percentage
+      increase or decrease.
+    </p>
+
+    <p>
+      Enter your numbers above and click the Calculate button to get the result.
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Tools Sathi. All Rights Reserved.
+</footer>
+
+<script>
+  function calculatePercentage() {
+    const percentage = parseFloat(document.getElementById("percent1").value);
+    const number = parseFloat(document.getElementById("number1").value);
+    const result = document.getElementById("result1");
+
+    if (isNaN(percentage) || isNaN(number)) {
+      result.innerHTML = '<span class="error">Please enter both values.</span>';
+      return;
+    }
+
+    const answer = (percentage / 100) * number;
+    result.textContent = percentage + "% of " + number + " = " + answer;
+  }
+
+  function calculateWhatPercent() {
+    const x = parseFloat(document.getElementById("number2").value);
+    const y = parseFloat(document.getElementById("number3").value);
+    const result = document.getElementById("result2");
+
+    if (isNaN(x) || isNaN(y)) {
+      result.innerHTML = '<span class="error">Please enter both values.</span>';
+      return;
+    }
+
+    if (y === 0) {
+      result.innerHTML = '<span class="error">The second number cannot be zero.</span>';
+      return;
+    }
+
+    const answer = (x / y) * 100;
+    result.textContent = x + " is " + answer + "% of " + y;
+  }
+
+  function calculateChange() {
+    const oldValue = parseFloat(document.getElementById("oldValue").value);
+    const newValue = parseFloat(document.getElementById("newValue").value);
+    const result = document.getElementById("result3");
+
+    if (isNaN(oldValue) || isNaN(newValue)) {
+      result.innerHTML = '<span class="error">Please enter both values.</span>';
+      return;
+    }
+
+    if (oldValue === 0) {
+      result.innerHTML = '<span class="error">Original value cannot be zero.</span>';
+      return;
+    }
+
+    const change = ((newValue - oldValue) / Math.abs(oldValue)) * 100;
+
+    if (change > 0) {
+      result.textContent = "Percentage Increase = " + change.toFixed(2) + "%";
+    } else if (change < 0) {
+      result.textContent = "Percentage Decrease = " + Math.abs(change).toFixed(2) + "%";
+    } else {
+      result.textContent = "No percentage change (0%).";
+    }
+  }
+</script>
+
+</body>
+</html>￼Enter
